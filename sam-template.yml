@@ -1,52 +1,35 @@
+  
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: 'basic-aws-apigateway-demo Sample SAM Template for basic-aws-apigateway-demo'
-Resources:
-  BasicAWSApiGateway:
-    Type: AWS::Serverless::Api
-    Properties:
-      Name: Basic AWS Api Gateway
-      StageName: Staging
-      Auth:
-        Authorizers:
-          BasicAuthorizer:
-            FunctionPayloadType: TOKEN
-            FunctionArn: !ImportValue BasicAuthorizerFunction-Arn
-            Identity:
-              Header: Authorization
-              ValidationExpression: ^[Bb]earer [-0-9a-zA-z\.]*$
-              ReauthorizeEvery: 0
-        DefaultAuthorizer: BasicAuthorizer
+Description: >
+    BikeShareApp
+    BikeShare SAM Template for complete serverless
+    
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+    Function:
+        Timeout: 3
 
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: s3://my-deploy-bucket/55a26a8f341213745858d3678c5bbe0e
-      Handler: app.lambda_handler
-      Runtime: python3.7
-      Events:
-        HelloWorldApi:
-          Type: Api
-          Properties:
-            RestApiId:
-              Ref: BasicAWSApiGateway
-            Path: /hello
-            Method: GET
-Outputs:
-  BasicAWSApiGateway:
-    Description: API Gateway endpoint URL for Staging stage for Hello World function
-    Value:
-      Fn::Sub: https://${BasicAWSApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Staging/hello/
-  BasicAWSApiGatewayRestApiId:
-    Description: API Gateway ARN for Basic AWS API Gateway
-    Value:
-      Ref: BasicAWSApiGateway
-    Export:
-      Name: BasicAWSApiGateway-RestApiId
-  BasicAWSApiGatewayRootResourceId:
-    Value:
-      Fn::GetAtt:
-        - BasicAWSApiGateway
-        - RootResourceId
-    Export:
-      Name: BasicAWSApiGateway-RootResourceId
+
+Resources:
+
+    getBike:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            CodeUri: s3//angular-build-deployment/angularSeo           
+            Handler: main.Handler
+            Runtime: nodejs10.x
+            Role: arn:aws:iam::000002789781:role/cfn-lambda-pipeline
+            Timeout: 240
+            Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
+                Variables:
+                    PARAM1: VALUE
+            Events:
+                FirstComponent:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                       Auth:
+                          Authorizer: NONE
+                        Path: /firstComponent
+                        Method: get
+                    

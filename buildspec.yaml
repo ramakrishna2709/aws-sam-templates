@@ -16,6 +16,7 @@ phases:
         - echo Installing source NPM dependencies...
         - npm install
         - npm install -g @angular/cli
+        - aws cloudformation package --template-file sam-template --s3-bucket angular-build-deployment --output-template-file packaged.yaml
   build:
     commands:
         - echo Build started on `date`
@@ -31,7 +32,7 @@ phases:
         - aws s3 cp dist s3://${S3_BUCKET}/${APP_NAME} --recursive
         - echo Build completed on `date`
 artifacts:
+    type: zip
     files:
-        - '**/*'
-    base-directory: 'dist*'
-    discard-paths: yes
+      - sam-template.yaml
+      - packaged.yaml
