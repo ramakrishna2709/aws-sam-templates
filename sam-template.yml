@@ -17,7 +17,7 @@ Resources:
     angularcomponenttest:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
         Properties:
-            CodeUri: s3//angular-build-deployment/angularseo/angularSeo.zip         
+            CodeUri: s3//angular-build-deployment/angularSeo/angularSeo.zip         
             Handler: main.Handler
             Runtime: nodejs10.x
             Role: arn:aws:iam::000002789781:role/cfn-lambda-pipeline
