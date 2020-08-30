@@ -16,7 +16,7 @@ phases:
         - echo Installing source NPM dependencies...
         - npm install
         - npm install -g @angular/cli
-        - aws cloudformation package --template-file sam-template --s3-bucket angular-build-deployment --output-template-file packaged.yaml
+        - aws cloudformation package --template-file sam-template.yml --s3-bucket angular-build-deployment --output-template-file packaged.yaml
   build:
     commands:
         - echo Build started on `date`

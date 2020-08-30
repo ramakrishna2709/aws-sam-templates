@@ -28,8 +28,8 @@ Resources:
                 FirstComponent:
                     Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
                     Properties:
-                       Auth:
-                          Authorizer: NONE
-                        Path: /firstComponent
-                        Method: get
+                      Auth:
+                        Authorizer: NONE
+                      Path: /firstComponent
+                      Method: get
                     
