@@ -20,6 +20,10 @@ phases:
     commands:
         - echo Build started on `date`
         - ng build --${BUILD_ENV}
+        - echo testing started on `date`
+        - ng test --${BUILD_ENV}
+        - echo end to end started on `date`
+        - ng ec2 --${BUILD_ENV}
 
   post_build:
         commands:
